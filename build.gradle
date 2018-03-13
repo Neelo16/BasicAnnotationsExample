@@ -13,6 +13,8 @@ version '1.0-SNAPSHOT'
 mainClassName = 'pt.ist.ap.labs.RunTests'
 
 run {
+//    args = ["pt.ist.ap.labs.TestSimple"]
+//    args = ["pt.ist.ap.labs.TestWithSetup"]
     args = ["pt.ist.ap.labs.TestInheritance"]
 }
 
