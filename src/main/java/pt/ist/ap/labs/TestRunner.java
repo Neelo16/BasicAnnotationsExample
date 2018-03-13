@@ -2,6 +2,7 @@ package pt.ist.ap.labs;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -26,7 +27,7 @@ public class TestRunner {
         }
         collectSetupMethods(testClass);
         for (Method m: testClass.getDeclaredMethods()) {
-            if (m.isAnnotationPresent(Test.class)) {
+            if (isTestMethod(m)) {
                 try {
                     runSetupMethods(m.getAnnotation(Test.class).value());
                     m.setAccessible(true);
@@ -58,9 +59,23 @@ public class TestRunner {
 
     private void collectSetupMethods(Class testClass) {
         for (Method m: testClass.getDeclaredMethods()) {
-            if (m.isAnnotationPresent(Setup.class)) {
+            if (isSetupMethod(m)) {
                 setupMethods.put(m.getAnnotation(Setup.class).value(), m);
             }
         }
     }
+
+    private boolean isStaticMethodNoArguments(Method m) {
+        int mod = m.getModifiers();
+        return Modifier.isStatic(mod) && m.getParameterCount() == 0;
+    }
+
+    private boolean isSetupMethod(Method m) {
+        return m.isAnnotationPresent(Setup.class) && isStaticMethodNoArguments(m);
+    }
+
+    private boolean isTestMethod(Method m) {
+        return m.isAnnotationPresent(Test.class) && isStaticMethodNoArguments(m);
+    }
+
 }
