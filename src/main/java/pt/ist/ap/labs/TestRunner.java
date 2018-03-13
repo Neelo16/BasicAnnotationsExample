@@ -59,7 +59,7 @@ public class TestRunner {
     private void collectSetupMethods(Class testClass) {
         for (Method m: testClass.getDeclaredMethods()) {
             if (m.isAnnotationPresent(Setup.class)) {
-                setupMethods.put(m.getName(), m);
+                setupMethods.put(m.getAnnotation(Setup.class).value(), m);
             }
         }
     }
