@@ -4,14 +4,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.HashMap;
 
 public class TestRunner {
     private int passed = 0;
     private int failed = 0;
-    private LinkedHashMap<String,Method> setupMethods = new LinkedHashMap<>();
+    private HashMap<String,Method> setupMethods = new HashMap<>();
     public int getPassed() {
         return passed;
     }
